@@ -53,7 +53,11 @@ function App() {
 
     const completed = localStorage.getItem('completed');
     if (completed) {
-      setCompleted(JSON.parse(completed) as Todo[]);
+      const parsed = JSON.parse(completed) as Todo[];
+      parsed.forEach((todo) => {
+        todo.dueDate = todo.dueDate ? new Date(todo.dueDate) : undefined;
+      });
+      setCompleted(parsed);
     }
   }, []);
 
